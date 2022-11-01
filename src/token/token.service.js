@@ -117,6 +117,10 @@ const findRefreshToken = async (refreshToken, type) => {
   return await Token.findOne({ token: refreshToken, type, blacklisted: false });
 };
 
+const deleteManyByIdAndType = async (id, type) => {
+  await Token.deleteMany({ user: id, type });
+};
+
 module.exports = {
   generateToken,
   saveToken,
@@ -125,4 +129,5 @@ module.exports = {
   generateResetPasswordToken,
   generateVerifyEmailToken,
   findRefreshToken,
+  deleteManyByIdAndType,
 };

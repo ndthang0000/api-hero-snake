@@ -63,7 +63,7 @@ const resetPassword = async (resetPasswordToken, newPassword) => {
       throw new Error();
     }
     await userService.updateUserById(user.id, { password: newPassword });
-    await Token.deleteMany({ user: user.id, type: tokenTypes.RESET_PASSWORD });
+    await tokenService.deleteManyByIdAndType(user.id, tokenTypes.RESET_PASSWORD);
   } catch (error) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Password reset failed');
   }
@@ -81,7 +81,7 @@ const verifyEmail = async (verifyEmailToken) => {
     if (!user) {
       throw new Error();
     }
-    await Token.deleteMany({ user: user.id, type: tokenTypes.VERIFY_EMAIL });
+    await tokenService.deleteManyByIdAndType(user.id, tokenTypes.VERIFY_EMAIL);
     await userService.updateUserById(user.id, { isEmailVerified: true });
   } catch (error) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Email verification failed');
