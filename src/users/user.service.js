@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const { User } = require('../models');
+const { User } = require('./user.model');
 const ApiError = require('../utils/ApiError');
 
 /**
@@ -79,6 +79,10 @@ const deleteUserById = async (userId) => {
   return user;
 };
 
+const findOneById = async (userId) => {
+  return User.findById(userId);
+};
+
 module.exports = {
   createUser,
   queryUsers,
@@ -86,4 +90,5 @@ module.exports = {
   getUserByEmail,
   updateUserById,
   deleteUserById,
+  findOneById,
 };
