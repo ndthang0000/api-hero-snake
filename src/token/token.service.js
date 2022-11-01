@@ -3,7 +3,7 @@ const moment = require('moment');
 const httpStatus = require('http-status');
 const config = require('../config/config');
 const { userService } = require('../service.index');
-const { Token } = require('../models');
+const { Token } = require('./token.model');
 const ApiError = require('../utils/ApiError');
 const { tokenTypes } = require('../config/tokens');
 
@@ -113,6 +113,10 @@ const generateVerifyEmailToken = async (user) => {
   return verifyEmailToken;
 };
 
+const findRefreshToken = async (refreshToken, type) => {
+  return await Token.findOne({ token: refreshToken, type, blacklisted: false });
+};
+
 module.exports = {
   generateToken,
   saveToken,
@@ -120,4 +124,5 @@ module.exports = {
   generateAuthTokens,
   generateResetPasswordToken,
   generateVerifyEmailToken,
+  findRefreshToken,
 };

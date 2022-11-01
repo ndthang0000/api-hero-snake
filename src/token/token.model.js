@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { toJSON } = require('./plugins');
+const { toJSON } = require('../share/model/plugins');
 const { tokenTypes } = require('../config/tokens');
 
 const tokenSchema = mongoose.Schema(
